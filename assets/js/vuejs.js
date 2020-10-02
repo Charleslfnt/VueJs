@@ -1,22 +1,19 @@
-Vue.component('fiche-produit', {
-    template: `<div class="col-3">
-        <p class="jumbotron"> {{ nom }} 
-        <button v-on:click="passer_commande(nom)" v-if="role == 'commande'">Commander !</button>
-        <button v-on:click="supprimer_commande(nom)" v-if="role == 'recap'">Supprimer !</button>
+ Vue.component('fiche-produit', {
+    template: `<div class="col-3 template">
+        <p class="jumbotron libelle"> <b>{{ nom }} </b>
        <img class="img-fluid img" src="assets/img/pizza.jpg" v-if="nom == 'Pizza'" >
        <img class="img-fluid img" src="assets/img/tacos.jpg" v-if="nom == 'Tacos'" >
        <img class="img-fluid img" src="assets/img/hamburger.jpg" v-if="nom == 'Hamburger'" >
        <img class="img-fluid img" src="assets/img/chesseburger.jpg" v-if="nom == 'Chesseburger'" >
-       <style>
-           .img {
-               height: 50px;
-               width: 50px;
-           }
-       </style>
+        
+       <br><br>
+       <button v-on:click="passer_commande(nom)" v-if="role == 'commande'">Commander !</button>
+       <button v-on:click="supprimer_commande(nom)" v-if="role == 'recap'">Supprimer !</button>
 
     </p> 
+    {{tarif}}
     </div>`,
-    props: ['nom', 'role'],
+    props: ['nom', 'role', 'prix'],
     methods:{
         passer_commande: function(produit){
             this.$emit('commande-passee', produit) //emit = emettre
@@ -43,5 +40,6 @@ var app = new Vue({  // création de l'instance vue qui aura en paramètre notre
            var index = this.commandes.indexOf(produit);
             this.commandes.splice(index, 1);
         }
+        
     }
 })
